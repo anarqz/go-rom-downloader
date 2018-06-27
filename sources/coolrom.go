@@ -1,21 +1,21 @@
 package sources
 
 import (
-	"regexp"
 	"fmt"
-	
-	"github.com/gocolly/colly"
+	"regexp"
+
 	"github.com/alcmoraes/go-cr-scraper/domains"
+	"github.com/gocolly/colly"
 )
 
 type CoolromSource struct {
-	Endpoint string
+	Endpoint  string
 	UserAgent string
 	LookupURL string
 }
 
 func (self *CoolromSource) Lookup(name string) []domains.Rom {
-	
+
 	idExtractPatternFromDownload := regexp.MustCompile(`http://dfw.coolrom.com/dl/(.*?)/.*`)
 	idExtractPatternFromList := regexp.MustCompile(`/roms/.*/(.*?)/`)
 
@@ -28,10 +28,10 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 
 	// Find and visit all links
 	c.OnHTML("ul[data-role=listview] a", func(e *colly.HTMLElement) {
-		gameID := idExtractPatternFromList.FindStringSubmatch(e.Attr("href"))[1];
+		gameID := idExtractPatternFromList.FindStringSubmatch(e.Attr("href"))[1]
 
 		romsTemp[gameID] = map[string]string{
-			"name": e.ChildText("h3"),
+			"name":    e.ChildText("h3"),
 			"console": e.ChildText("p"),
 		}
 
@@ -39,11 +39,11 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 
 	})
 
-	c.OnHTML("form[name=dlform]", func(e *colly.HTMLElement){
-		gameID := idExtractPatternFromDownload.FindStringSubmatch(e.Attr("action"))[1];
+	c.OnHTML("form[name=dlform]", func(e *colly.HTMLElement) {
+		gameID := idExtractPatternFromDownload.FindStringSubmatch(e.Attr("action"))[1]
 		rom := romsTemp[gameID].(map[string]string)
 
-		roms= append(roms, *domains.CreateRom(
+		roms = append(roms, *domains.CreateRom(
 			rom["name"],
 			rom["console"],
 			e.Attr("action"),
@@ -51,8 +51,8 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 	})
 
 	// Do the first query
-	fmt.Println(fmt.Sprintf("Querying: " + self.Endpoint + self.LookupURL, name))
-	c.Visit(fmt.Sprintf(self.Endpoint + self.LookupURL, name))
+	fmt.Println(fmt.Sprintf("Querying: "+self.Endpoint+self.LookupURL, name))
+	c.Visit(fmt.Sprintf(self.Endpoint+self.LookupURL, name))
 
 	c.Wait()
 
@@ -62,7 +62,7 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 
 func NewCoolromSource() *CoolromSource {
 	return &CoolromSource{
-		Endpoint: "http://m.coolrom.com.au/",
+		Endpoint:  "http://m.coolrom.com.au/",
 		UserAgent: "Mozilla/5.0 (Linux; Android 6.0; SAMSUNG SM-G930F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36",
 		LookupURL: "search/?q=%s",
 	}
