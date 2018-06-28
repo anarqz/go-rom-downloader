@@ -28,3 +28,7 @@
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  name = "github.com/cavaliercoder/grab"
+  version = "2.0.0"

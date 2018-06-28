@@ -32,6 +32,12 @@
   revision = "077bca4d2caaf391ee780136adae00f59153dcd2"
 
 [[projects]]
+  name = "github.com/cavaliercoder/grab"
+  packages = ["."]
+  revision = "466b5c0dd1d077be6de521d4e753734b17899a4d"
+  version = "v2.0.0"
+
+[[projects]]
   name = "github.com/gobwas/glob"
   packages = [
     ".",
@@ -135,6 +141,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f35c0756650306c31f6754982af4763bdb59254a9d4922fd89e899bf1c164ec0"
+  inputs-digest = "b11297421978ad10e031a7560e31fddc0019573b4276b413967c40dff74e870b"
   solver-name = "gps-cdcl"
   solver-version = 1

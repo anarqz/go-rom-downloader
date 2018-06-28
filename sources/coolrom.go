@@ -51,7 +51,6 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 	})
 
 	// Do the first query
-	fmt.Println(fmt.Sprintf("Querying: "+self.Endpoint+self.LookupURL, name))
 	c.Visit(fmt.Sprintf(self.Endpoint+self.LookupURL, name))
 
 	c.Wait()
