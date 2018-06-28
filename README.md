@@ -8,6 +8,7 @@
 
 ### Dependencies
 
+- [go](https://github.com/golang/go)
 - [dep](https://github.com/golang/dep)
 
 ```shell
