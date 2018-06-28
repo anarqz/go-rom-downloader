@@ -2,6 +2,32 @@
 
 ## A small go tool to download roms from known emulator websites
 
+## Available consoles
+
+- Atari 2600
+- Atari 5200
+- Atari 7800
+- Atari Jaguar
+- Atari Lynx
+- Commodore 64
+- CPS1
+- CPS2
+- MAME
+- Namco System 22
+- Neo Geo
+- Neo Geo CD
+- Neo Geo Pocket
+- Sega CD
+- Sega Dreamcast
+- Sega Game Gear
+- Sega Genesis
+- Sega Master System
+- Sega Model 2
+- Sega Saturn
+- Sony Playstation
+- Sony Playstation 2
+- Sony Playstation Portable
+
 ## Usage
 
 ## **1. From source**
