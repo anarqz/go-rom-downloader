@@ -1,18 +1,17 @@
 package domains
 
-import "fmt"
-
 type Rom struct {
-	Name    string
-	Console string
-	URL     string
+	Name        string
+	Console     string
+	URL         string
+	DownloadURL string
 }
 
-// Download the rom
-func (self *Rom) Download() {
-	fmt.Println(self.Name)
+// SetDownloadURL from the rom
+func (self *Rom) SetDownloadURL(url string) {
+	self.DownloadURL = url
 }
 
-func CreateRom(name string, console string, url string) *Rom {
-	return &Rom{name, console, url}
+func CreateRom(name string, console string, url string, downloadUrl string) *Rom {
+	return &Rom{name, console, url, downloadUrl}
 }

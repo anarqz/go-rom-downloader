@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/alcmoraes/go-cr-scraper/sources"
+	"github.com/alcmoraes/go-rom-downloader/sources"
 	"github.com/cavaliercoder/grab"
 )
 
@@ -25,7 +25,7 @@ func main() {
 			fmt.Println("Exiting...")
 			os.Exit(1)
 		}
-gamechose:
+	gamechose:
 		fmt.Println("============================")
 		for i, rom := range roms {
 			fmt.Printf("[%d] %s (%s)\n", i+1, rom.Name, rom.Console)
@@ -35,19 +35,20 @@ gamechose:
 		gameChosenScanner := bufio.NewScanner(os.Stdin)
 		for gameChosenScanner.Scan() {
 			gameChosen, err := strconv.ParseInt(gameChosenScanner.Text(), 10, 32)
-			if err != nil || gameChosen < 1 || gameChosen > int64(len(roms) + 1) {
+			if err != nil || gameChosen < 1 || gameChosen > int64(len(roms)+1) {
 				fmt.Println("Invalid option.")
 				goto gamechose
 			}
-			rom := roms[gameChosen-1]
+			rom := roms[gameChosen - 1]
+			source.GetDownloadLink(&rom)
 			client := grab.NewClient()
-			req, _ := grab.NewRequest(".", rom.URL)
+			req, _ := grab.NewRequest(".", rom.DownloadURL)
 			fmt.Printf("Downloading %v...\n", rom.Name)
 			resp := client.Do(req)
 			fmt.Printf("  %v\n", resp.HTTPResponse.Status)
 			t := time.NewTicker(500 * time.Millisecond)
 			defer t.Stop()
-Loop:
+		Loop:
 			for {
 				select {
 				case <-t.C:
@@ -55,7 +56,7 @@ Loop:
 						resp.BytesComplete(),
 						resp.Size,
 						100*resp.Progress())
-		
+
 				case <-resp.Done:
 					break Loop
 				}
