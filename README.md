@@ -17,7 +17,7 @@ make run
 
 ## **2. From build**
 
-You can also opt to directly use the builded version inside `app` folder.
+You can also opt to directly use the compiled version inside `app` folder.
 
 ```shell
 git clone https://github.com/alcmoraes/go-rom-downloader
