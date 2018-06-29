@@ -2,17 +2,16 @@ package sources
 
 import "github.com/alcmoraes/go-rom-downloader/domains"
 
+var RomSources = map[string]interface{}{
+	"Coolrom": NewCoolromSource(),
+	"Emuparadise": NewEmuparadiseSource(),
+}
+
 type Source interface {
 	Lookup(name string) []domains.Rom
 	GetDownloadLink(rom *domains.Rom) string
 }
 
 func LoadSource(s string, o map[string]interface{}) Source {
-
-	source := map[string]interface{}{
-		"Coolrom": NewCoolromSource(),
-	}
-
-	return source[s].(Source)
-
+	return RomSources[s].(Source)
 }
