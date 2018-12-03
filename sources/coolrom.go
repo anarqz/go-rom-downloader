@@ -38,9 +38,9 @@ func (self *CoolromSource) Lookup(name string) []domains.Rom {
 }
 
 func (self *CoolromSource) GetDownloadLink(rom *domains.Rom) string {
-
-	self.c.OnHTML("form[name=dlform]", func(e *colly.HTMLElement) {
-		rom.SetDownloadURL(e.Attr("action"))
+	self.c.OnHTML("form[name=dlform] input[name=id]", func(e *colly.HTMLElement) {
+		romURL := fmt.Sprintf("http://m.coolrom.com.au/download?id=%s&type=rom", e.Attr("value"))
+		rom.SetDownloadURL(romURL)
 	})
 
 	self.c.Visit(self.Endpoint + rom.URL)

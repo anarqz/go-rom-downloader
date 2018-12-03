@@ -84,8 +84,10 @@ rom_choose_input:
 
 func Download(rom domains.Rom) {
 	client := grab.NewClient()
+	client.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; SAMSUNG SM-G930F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36"
 	req, _ := grab.NewRequest(".", rom.DownloadURL)
 	fmt.Printf("Downloading %v...\n", rom.Name)
+
 	resp := client.Do(req)
 	fmt.Printf("  %v\n", resp.HTTPResponse.Status)
 	t := time.NewTicker(500 * time.Millisecond)
